@@ -26,7 +26,7 @@ class TacoStreamer(TwythonStreamer):
             tweetback = True
         doc_url = 'https://docs.google.com/spreadsheet/ccc'
         params = {'key': '0Anp-zgGKPxl7dEd2TUpzSWQxWDR4UWFuWWxRc2RHbUE', 'output':'csv'}
-        phrases = requests.get(doc_url, params)
+        phrases = requests.get(doc_url, params=params)
         phrase_list = phrases.content.split('\n')
         for phrase in phrase_list:
             if phrase in text:
