@@ -27,7 +27,7 @@ class TacoStreamer(TwythonStreamer):
                 seasoning_name = recipe['seasoning']['name']
                 shell = recipe['shell']['slug']
                 link = 'http://randomtaco.me/%s/%s/%s/%s/%s/' % (base_layer, mixin, condiment, seasoning, shell)
-                name = '%s %s %s %s' % (base_layer_name, mixin_name, condiment_name, seasoning_name)
+                name = 'Your taco: %s, %s, %s, and %s' % (base_layer_name, mixin_name, condiment_name, seasoning_name)
                 tweeter.update_status(status='@%s %s %s' % (screen_name, name, link))
 
     def on_error(self, status_code, data):
