@@ -20,7 +20,8 @@ tweeter = Twython(APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
 class TacoStreamer(TwythonStreamer):
     def on_success(self, data):
         user = data.get('user')
-        if user:
+        text = data.get('text')
+        if text.startswith('.@tacobot') or text.startswith('@tacobot'):
             screen_name = user.get('screen_name')
             recipe = requests.get('http://randomtaco.me/random/')
             if recipe.status_code is 200:
