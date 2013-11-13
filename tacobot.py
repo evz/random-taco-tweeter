@@ -31,7 +31,7 @@ class TacoStreamer(TwythonStreamer):
         for phrase in phrase_list:
             if phrase in text:
                 tweetback = True
-        if tweekback:
+        if tweetback:
             screen_name = user.get('screen_name')
             recipe = requests.get('http://randomtaco.me/random/')
             if recipe.status_code is 200:
