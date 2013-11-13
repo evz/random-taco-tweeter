@@ -22,8 +22,6 @@ class TacoStreamer(TwythonStreamer):
         user = data.get('user')
         text = data.get('text')
         tweetback = False
-        if text.startswith('.@tacobot') or text.startswith('@tacobot'):
-            tweetback = True
         doc_url = 'https://docs.google.com/spreadsheet/ccc'
         params = {'key': '0Anp-zgGKPxl7dEd2TUpzSWQxWDR4UWFuWWxRc2RHbUE', 'output':'csv'}
         phrases = requests.get(doc_url, params=params)
