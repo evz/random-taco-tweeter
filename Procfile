@@ -1,1 +1,1 @@
-web: python tacobot.py
+twitterbot: python tacobot.py
