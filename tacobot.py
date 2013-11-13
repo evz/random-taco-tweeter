@@ -21,7 +21,17 @@ class TacoStreamer(TwythonStreamer):
     def on_success(self, data):
         user = data.get('user')
         text = data.get('text')
+        tweetback = False
         if text.startswith('.@tacobot') or text.startswith('@tacobot'):
+            tweetback = True
+        doc_url = 'https://docs.google.com/spreadsheet/ccc'
+        params = {'key': '0Anp-zgGKPxl7dEd2TUpzSWQxWDR4UWFuWWxRc2RHbUE', 'output':'csv'}
+        phrases = requests.get(doc_url, params)
+        phrase_list = phrases.content.split('\n')
+        for phrase in phrase_list:
+            if phrase in text:
+                tweetback = True
+        if tweekback:
             screen_name = user.get('screen_name')
             recipe = requests.get('http://randomtaco.me/random/')
             if recipe.status_code is 200:
