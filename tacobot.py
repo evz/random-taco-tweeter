@@ -14,6 +14,7 @@ SENTRY_DSN = os.environ['SENTRY_DSN']
 
 logging_handler = SentryHandler(SENTRY_DSN)
 logger = logging.getLogger(__name__)
+logger.addHandler(logging_handler)
 
 tweeter = Twython(APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
 
