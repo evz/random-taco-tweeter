@@ -46,7 +46,7 @@ class TacoStreamer(TwythonStreamer):
                 link = 'http://randomtaco.me/%s/%s/%s/%s/%s/' % (base_layer, mixin, condiment, seasoning, shell)
                 name = 'Your taco: %s, %s, %s, and %s' % (base_layer_name, mixin_name, condiment_name, seasoning_name)
                 trunc_idx = (len(name) - len(screen_name)) - 5
-                tweeter.update_status(status='@%s %s... %s' % (screen_name, name[:trunc_idx], link))
+                tweeter.update_status(status='@%s %s... %s' % (screen_name, name[:trunc_idx], link), in_reply_to_status_id=data.get('id'))
 
     def on_error(self, status_code, data):
         logger.error('Crud, got a %s, %s' % (status_code, data))
