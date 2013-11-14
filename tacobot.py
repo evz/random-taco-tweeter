@@ -20,7 +20,7 @@ tweeter = Twython(APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
 class TacoStreamer(TwythonStreamer):
     def on_success(self, data):
         user = data.get('user')
-        text = data.get('text')
+        text = data.get('text').lower()
         tweetback = False
         doc_url = 'https://docs.google.com/spreadsheet/ccc'
         params = {'key': '0Anp-zgGKPxl7dEd2TUpzSWQxWDR4UWFuWWxRc2RHbUE', 'output':'csv'}
