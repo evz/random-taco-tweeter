@@ -12,9 +12,9 @@ OAUTH_TOKEN = os.environ['TWITTER_OAUTH_TOKEN']
 OAUTH_TOKEN_SECRET = os.environ['TWITTER_OAUTH_TOKEN_SECRET']
 SENTRY_DSN = os.environ['SENTRY_DSN']
 
-logging_handler = SentryHandler(SENTRY_DSN)
-logger = logging.getLogger(__name__)
-logger.addHandler(logging_handler)
+#logging_handler = SentryHandler(SENTRY_DSN)
+#logger = logging.getLogger(__name__)
+#logger.addHandler(logging_handler)
 
 tweeter = Twython(APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
 
@@ -35,6 +35,7 @@ class TacoStreamer(TwythonStreamer):
             recipe = requests.get('http://randomtaco.me/random/')
             if recipe.status_code is 200:
                 recipe = recipe.json()
+                logging.info(recipe)
                 base_layer = recipe['base_layer']['slug']
                 base_layer_name = recipe['base_layer']['name']
                 mixin = recipe['mixin']['slug']
@@ -50,7 +51,7 @@ class TacoStreamer(TwythonStreamer):
                 tweeter.update_status(status='@%s %s... %s' % (screen_name, name[:trunc_idx], link), in_reply_to_status_id=data.get('id'))
 
     def on_error(self, status_code, data):
-        logger.error('Crud, got a %s, %s' % (status_code, data))
+        logging.error('Crud, got a %s, %s' % (status_code, data))
 
 stream = TacoStreamer(APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
 stream.statuses.filter(track='@tacobot')
