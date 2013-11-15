@@ -10,7 +10,7 @@ APP_KEY = os.environ['TWITTER_API_KEY']
 APP_SECRET = os.environ['TWITTER_API_SECRET']
 OAUTH_TOKEN = os.environ['TWITTER_OAUTH_TOKEN']
 OAUTH_TOKEN_SECRET = os.environ['TWITTER_OAUTH_TOKEN_SECRET']
-SENTRY_DSN = os.environ['SENTRY_DSN']
+# SENTRY_DSN = os.environ['SENTRY_DSN']
 
 #logging_handler = SentryHandler(SENTRY_DSN)
 #logger = logging.getLogger(__name__)
@@ -21,14 +21,14 @@ tweeter = Twython(APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
 class TacoStreamer(TwythonStreamer):
     def on_success(self, data):
         user = data.get('user')
-        text = data.get('text').lower()
+        text = data.get('text').decode('utf-8').lower()
         tweetback = False
         doc_url = 'https://docs.google.com/spreadsheet/ccc'
         params = {'key': '0Anp-zgGKPxl7dEd2TUpzSWQxWDR4UWFuWWxRc2RHbUE', 'output':'csv'}
         phrases = requests.get(doc_url, params=params)
         phrase_list = phrases.content.split('\n')
         for phrase in phrase_list:
-            if phrase in text:
+            if phrase.decode('utf-8') in text:
                 tweetback = True
         if tweetback:
             screen_name = user.get('screen_name')
